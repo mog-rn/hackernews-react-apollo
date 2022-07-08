@@ -1,0 +1,64 @@
+import React, { useState } from "react";
+import { useMutation, gql } from "@apollo/client";
+
+const CREATE_LINK_MUTATION = gql`
+    mutattion PostMutation(
+        $description: String!
+        $url: String
+    ) {
+        post(description: $description, url: $url) {
+            id
+            createdAt
+            url
+            description
+    }
+`;
+
+const CreateLink = () => {
+  const [formState, setFormState] = useState({
+    description: "",
+    url: "",
+  });
+
+  const [createLink] = useMutation(CREATE_LINK_MUTATION, {
+    variables: {
+        description: formState.description,
+        url: formState.url,
+    },
+  });
+
+  return (
+    <div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          createLink();
+        }}
+      >
+        <div>
+          <input
+            type="text"
+            value={formState.description}
+            onChange={(e) =>
+              setFormState({ ...formState, description: e.target.value })
+            }
+            placeholder="A description of the link"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            value={formState.url}
+            onChange={(e) =>
+              setFormState({ ...formState, url: e.target.value })
+            }
+            placeholder="The URL for the link"
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export default CreateLink;
