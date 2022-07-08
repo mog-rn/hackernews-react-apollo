@@ -7,7 +7,7 @@ import './styles/index.css'
 import {ApolloProvider, ApolloClient, createHttpLink, InMemoryCache} from "@apollo/client"
 
 const httplink = createHttpLink({
-  uri: 'http://localhost:400'
+  uri: 'http://localhost:4000'
 })
 
 const client = new ApolloClient({
