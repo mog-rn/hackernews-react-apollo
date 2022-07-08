@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 const CREATE_LINK_MUTATION = gql`
-    mutattion PostMutation(
+    mutation PostMutation(
         $description: String!
-        $url: String
+        $url: String!
     ) {
         post(description: $description, url: $url) {
             id
             createdAt
             url
             description
+        }
     }
 `;
 
